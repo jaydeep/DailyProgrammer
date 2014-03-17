@@ -7,7 +7,7 @@ def createAlphaHash
   @alphaHash
 end
 
-# parse the input
+# parse the input, and create the matrix
 def importMatrix
   num_vertices = gets.chomp!.to_i
   matrix = []
@@ -19,6 +19,8 @@ def importMatrix
   p matrix
 end
 
+#given the matrix as an input, create a nested hash of edges and 
+#a list in decreasing order of which edges to attack first
 def listEdges(matrix)
   edges = {}
   hitList = {}
@@ -43,6 +45,8 @@ def listEdges(matrix)
   [edges,hitList]
 end
 
+#given the nested hash and hitlist, iterate over the list and check if deleting
+#an edge results in a broken connection or not
 def reverse_delete(result)
   edges = result[0]
   hitList = result[1]
@@ -61,7 +65,8 @@ def reverse_delete(result)
   edges
 end
 
-#this implements a breadth first search
+#this implements a breadth first search to ensure that the connection between
+#two vertices still exists
 def path_exists?(edges, start, finish) 
   nodes = edges[start].keys
   touchedNodes = nodes + [start]
@@ -79,6 +84,7 @@ def path_exists?(edges, start, finish)
   false
 end
 
+#prints the distance of the MST and the edges that remain
 def printResult(edges)
   sum = 0
   graph = []
