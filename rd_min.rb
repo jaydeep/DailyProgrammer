@@ -1,10 +1,8 @@
-def createAlphaNumHash
+def createAlphaHash
   @alphaHash = {}
-  @numberHash = {}
 
   ('A'..'Z').to_a.each_with_index do |letter, index|
     @alphaHash[index] = letter
-    @numberHash[letter] = index
   end
   @alphaHash
 end
@@ -20,10 +18,6 @@ def importMatrix
 
   p matrix
 end
-
-#take the tree and sort it from largest distance to shortest
-#delete the edge and check if the two nodes are still connected
-#if the graph is not connected, do not delete, and move to the next edge
 
 def listEdges(matrix)
   edges = {}
@@ -67,7 +61,8 @@ def reverse_delete(result)
   edges
 end
 
-def path_exists?(edges, start, finish)
+#this implements a breadth first search
+def path_exists?(edges, start, finish) 
   nodes = edges[start].keys
   touchedNodes = nodes + [start]
   newNodes = nodes
@@ -99,7 +94,7 @@ def printResult(edges)
 end
 
 def run
-  createAlphaNumHash
+  createAlphaHash
   matrix = importMatrix
   result = listEdges(matrix)
   edges = reverse_delete(result)
